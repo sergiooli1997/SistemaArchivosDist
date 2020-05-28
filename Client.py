@@ -1,28 +1,30 @@
 import xmlrpc.client
-import datetime
-s = xmlrpc.client.ServerProxy('http://localhost:8000')
+rpc = xmlrpc.client.ServerProxy('http://localhost:8000')
 
 print("Ingresa un comando. Los comandos permitidos son:")
-print("CREATE")
-print("READ y WRITE")
-print("RENAME")
-print("REMOVE")
-print("MKDIR y RMDIR")
-print("READDIR")
+print("CREATE / READ / WRITE / RENAME / REMOVE / MKDIR / RMDIR / READDIR")
 opc = input()
+print('Ingresa path')
+path = input()
 if opc == 'CREATE':
-    print('CREATE')
+    rpc.create(path)
 if opc == 'READ':
-    print('READ')
+    print('Texto del archivo leido')
+    print(rpc.read(path))
 if opc == 'WRITE':
-    print('WRITE')
+    print('Escriba')
+    texto = input()
+    rpc.write(path, texto)
 if opc == 'RENAME':
-    print('RENAME')
+    print('Ingrese nuevo nombre')
+    new_name = input()
+    rpc.rename(path, new_name)
 if opc == 'REMOVE':
-    print('REMOVE')
+    rpc.remove(path)
 if opc == 'MKDIR':
-    print('MKDIR')
+    rpc.mkdir(path)
 if opc == 'RMDIR':
-    print('RMDIR')
+    rpc.rmdir(path)
 if opc == 'READDIR':
-    print('READDIR')
+    print('Lista de archivos')
+    print(rpc.readdir(path))
